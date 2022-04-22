@@ -1,0 +1,381 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: 测试 openapi 项目
+    description: 'echo '
+    version: 0.0.1
+paths:
+    /v1/category/{id}:
+        get:
+            tags:
+                - Category
+            operationId: Category_GetCategory
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetCategoryReply'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1/example/echo/{id}:
+        post:
+            tags:
+                - EchoService
+            description: |-
+                Echo method receives a simple message and returns it.
+
+                 The message posted as the id parameter will also be
+                 returned.
+            operationId: EchoService_Echo
+            parameters:
+                - name: id
+                  in: path
+                  description: Id represents the message identifier.
+                  required: true
+                  schema:
+                    type: string
+                - name: num
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: lineNum
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: lang
+                  in: query
+                  schema:
+                    type: string
+                - name: status.progress
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: status.note
+                  in: query
+                  schema:
+                    type: string
+                - name: en
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: no.progress
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: no.note
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SimpleMessage'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1/example/echo_body:
+        post:
+            tags:
+                - EchoService
+            description: EchoBody method receives a simple message and returns it.
+            operationId: EchoService_EchoBody
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/SimpleMessage'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SimpleMessage'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1/example/echo_delete:
+        delete:
+            tags:
+                - EchoService
+            description: EchoDelete method receives a simple message and returns it.
+            operationId: EchoService_EchoDelete
+            parameters:
+                - name: id
+                  in: query
+                  description: Id represents the message identifier.
+                  schema:
+                    type: string
+                - name: num
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: lineNum
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: lang
+                  in: query
+                  schema:
+                    type: string
+                - name: status.progress
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: status.note
+                  in: query
+                  schema:
+                    type: string
+                - name: en
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: no.progress
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: no.note
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SimpleMessage'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1/example/echo_patch:
+        patch:
+            tags:
+                - EchoService
+            description: EchoPatch method receives a NonStandardUpdateRequest and returns it.
+            operationId: EchoService_EchoPatch
+            parameters:
+                - name: updateMask
+                  in: query
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/DynamicMessage'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DynamicMessageUpdate'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1/example/echo_unauthorized:
+        get:
+            tags:
+                - EchoService
+            description: |-
+                EchoUnauthorized method receives a simple message and returns it. It must
+                 always return a google.rpc.Code of `UNAUTHENTICATED` and a HTTP Status code
+                 of 401.
+            operationId: EchoService_EchoUnauthorized
+            parameters:
+                - name: id
+                  in: query
+                  description: Id represents the message identifier.
+                  schema:
+                    type: string
+                - name: num
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: lineNum
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: lang
+                  in: query
+                  schema:
+                    type: string
+                - name: status.progress
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: status.note
+                  in: query
+                  schema:
+                    type: string
+                - name: en
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: no.progress
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: no.note
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SimpleMessage'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+components:
+    schemas:
+        DynamicMessage:
+            type: object
+            properties:
+                structField:
+                    type: object
+                valueField:
+                    $ref: '#/components/schemas/GoogleProtobufValue'
+            description: DynamicMessage represents a message which can have its structure built dynamically using Struct and Values.
+        DynamicMessageUpdate:
+            type: object
+            properties:
+                body:
+                    $ref: '#/components/schemas/DynamicMessage'
+                updateMask:
+                    type: string
+                    format: field-mask
+        Embedded:
+            type: object
+            properties:
+                progress:
+                    type: integer
+                    format: int64
+                note:
+                    type: string
+            description: Embedded represents a message embedded in SimpleMessage.
+        GetCategoryReply:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                partentId:
+                    type: integer
+                    format: int64
+                title:
+                    type: string
+                subTitle:
+                    type: string
+                thumbUrl:
+                    type: string
+                createdAt:
+                    type: string
+                    format: date-time
+        GoogleProtobufAny:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        GoogleProtobufValue:
+            description: Represents a dynamically typed value which can be either null, a number, a string, a boolean, a recursive struct value, or a list of values.
+        SimpleMessage:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Id represents the message identifier.
+                num:
+                    type: integer
+                    format: int64
+                lineNum:
+                    type: integer
+                    format: int64
+                lang:
+                    type: string
+                status:
+                    $ref: '#/components/schemas/Embedded'
+                en:
+                    type: integer
+                    format: int64
+                no:
+                    $ref: '#/components/schemas/Embedded'
+            description: SimpleMessage represents a simple message sent to the Echo service.
+        Status:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+                    format: int32
+                message:
+                    type: string
+                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+                details:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/GoogleProtobufAny'
+                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+tags:
+    - name: Category
+    - name: EchoService
+      description: Echo service responds to incoming echo requests.

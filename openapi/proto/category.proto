@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package openapi.v1;
+
+option go_package = "openapi/pb/v1;v1";
+
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+
+service Category {
+    rpc GetCategory(GetCategoryRequest) returns (GetCategoryReply) {
+        option (google.api.http) = {
+            get: "/v1/category/{id}"
+        };
+    }
+}
+
+message GetCategoryRequest {
+    int64 id = 1;
+}
+
+message GetCategoryReply{
+    int64 id = 1;
+    int64 partent_id = 2;
+    string title = 3; 
+    string sub_title = 4;
+    string thumb_url = 5;
+    google.protobuf.Timestamp created_at = 6; 
+}
