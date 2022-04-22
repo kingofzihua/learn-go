@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: 测试 openapi 项目
+    title: 测试 项目
     description: 'echo '
     version: 0.0.1
 paths:
