@@ -9,7 +9,7 @@ openapi_doc:
 	protoc  --proto_path=./proto \
 		 	--proto_path=./third_party \
 			--openapi_out=title=${PROJECT_NAME},version=${PROJECT_VERSION},description=${PROJECT_DESCRIPTION}:./openapi \
-			proto/*.proto
+			proto/category.proto
 
 .PHONY: openapi_js
 openapi_js:
@@ -19,5 +19,8 @@ openapi_js:
 		-g typescript-axios \
 		-o "/local/web/src/openapi"
 	
+.PHONY: oapi_codegen
+oapi_codegen:
+	oapi-codegen openapi/openapi.yaml > oapi-codegen/openapi.gen.go
 help:
 	@echo 'help'
