@@ -40,7 +40,7 @@ components:
                 id:
                     type: integer
                     format: int64
-                partentId:
+                parentId:
                     type: integer
                     format: int64
                 title:

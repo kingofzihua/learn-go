@@ -21,7 +21,7 @@ message GetCategoryRequest {
 
 message GetCategoryReply{
     int64 id = 1;
-    int64 partent_id = 2;
+    int64 parent_id = 2;
     string title = 3; 
     string sub_title = 4;
     string thumb_url = 5;
