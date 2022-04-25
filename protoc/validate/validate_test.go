@@ -22,7 +22,13 @@ func TestProtoValidate(t *testing.T) {
 	p.Email = "kingofzihua@outlook.com"
 	p.Name = "kingofzihua"
 	p.Mobile = "15020866740"
-	p.Home = &proto.Person_Location{Lat: 35, Lng: 99}
+	location := &proto.Person_Location{Lat: 35, Lng: 180}
+	err = location.Validate()
+	if err != nil {
+		t.Error(err)
+	} else {
+		p.Home = location
+	}
 
 	err = p.Validate()
 	if err != nil {
