@@ -27,6 +27,16 @@ openapi_js:
 oapi_codegen:
 	oapi-codegen openapi/openapi.yaml > oapi-codegen/openapi.gen.go
 
+.PHONY: validate
+# gen validate
+validate:
+	protoc \
+		-I ./proto \
+		-I ./third_party \
+		--go_out=":." \
+		--validate_out="lang=go:." \
+		proto/person.proto
+
 # show help
 help:
 	@echo ''
