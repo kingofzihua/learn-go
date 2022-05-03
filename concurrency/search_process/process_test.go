@@ -15,7 +15,8 @@ func TestProcess(t *testing.T) {
 
 func TestProcessTimeout(t *testing.T) {
 	defer goleak.VerifyNone(t)
-	result, err := processTimeout("hello world", 100*time.Millisecond)
-	fmt.Println(result, err)
-	time.Sleep(200 * time.Millisecond)
+	result, err := processTimeout("hello world", 1000*time.Millisecond)
+	fmt.Println(result)
+	fmt.Println(err)
+	time.Sleep(2000 * time.Millisecond)
 }

@@ -16,7 +16,8 @@ func main() {
 }
 
 func searchSleep(term string) (string, error) {
-	time.Sleep(200 * time.Millisecond)
+	time.Sleep(2000 * time.Millisecond)
+	fmt.Println("search sleep return:" + term)
 	return "some value:" + term, nil
 }
 
@@ -32,27 +33,27 @@ func processTimeout(term string, timeout time.Duration) (string, error) {
 	ch := make(chan result)
 
 	// 超时以后的这个 goroutine 去哪里了？
-	// 使用 goleak 发现 goroutine 泄漏了
 	go func() {
 		defer func() {
 			fmt.Println("goroutine exit") // defer 也未执行
 		}()
 		record, err := searchSleep(term)
-		fmt.Println("ch wait data")
-		ch <- result{record, err}
-		fmt.Println("ch get data") // 超时以后并未打印
+
+		fmt.Println("search return")
+
+		// 使用 select ， 当超时当时候
+		select {
+		case <-ctx.Done():
+			fmt.Println("goroutine ctx done")
+			return
+		case ch <- result{record, err}:
+			fmt.Println("ch get data") // 超时以后并未打印
+			return
+		}
 	}()
 
 	select {
 	case <-ctx.Done():
-		go func() {
-			defer func() {
-				fmt.Println("ch <- result defer")
-			}()
-			fmt.Println("ch <- result")
-			<-ch
-			fmt.Println("ch <- result over")
-		}()
 		return "", errors.New("search time out")
 	case result := <-ch:
 		if result.err != nil {
