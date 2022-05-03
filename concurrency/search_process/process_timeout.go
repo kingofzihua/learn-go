@@ -45,6 +45,14 @@ func processTimeout(term string, timeout time.Duration) (string, error) {
 
 	select {
 	case <-ctx.Done():
+		go func() {
+			defer func() {
+				fmt.Println("ch <- result defer")
+			}()
+			fmt.Println("ch <- result")
+			<-ch
+			fmt.Println("ch <- result over")
+		}()
 		return "", errors.New("search time out")
 	case result := <-ch:
 		if result.err != nil {
