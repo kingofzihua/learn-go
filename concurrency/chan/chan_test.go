@@ -39,3 +39,27 @@ func TestCloseChannel(t *testing.T) {
 
 	wg.Wait()
 }
+
+func TestChanRange(t *testing.T) {
+
+	ch := make(chan string, 50)
+
+	go func() {
+		for i := 0; i < 50; i++ {
+			ch <- fmt.Sprint(i)
+		}
+		fmt.Println("ch <- end")
+	}()
+	go func() {
+		time.Sleep(1 * time.Second)
+		close(ch)
+	}()
+
+	for data := range ch {
+		fmt.Println("<- ch ", data)
+		time.Sleep(100 * time.Millisecond)
+	}
+
+	fmt.Println("exit")
+
+}
