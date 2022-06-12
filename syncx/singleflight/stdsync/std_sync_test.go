@@ -1,14 +1,13 @@
-package stdsync
+package singleflight
 
 import (
 	"fmt"
-	"golang.org/x/sync/singleflight"
 	"sync/atomic"
 	"testing"
 	"time"
 )
 
-var g singleflight.Group
+var g Group
 
 func TestExclusiveCallDo(T *testing.T) {
 	ticker := time.NewTicker(time.Microsecond * 1000)
