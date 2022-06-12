@@ -2,7 +2,4 @@ module github.com/kingofzihua/learn-go/syncx
 
 go 1.18
 
-require (
-	go.uber.org/goleak v1.1.12
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-)
+require go.uber.org/goleak v1.1.12
