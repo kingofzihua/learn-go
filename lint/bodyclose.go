@@ -1,8 +1,8 @@
 package main
 
 import (
-	"http"
-	"ioutil"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
