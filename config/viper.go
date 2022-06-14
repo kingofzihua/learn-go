@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
+	"github.com/fsnotify/fsnotify"
 	flag "github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	yaml "gopkg.in/yaml.v3"
 	"os"
 	"strings"
+	"time"
 )
 
 var (
@@ -70,6 +72,28 @@ func main() {
 	}
 
 	fmt.Printf("mashal config to YAML: \n %s \n", bs)
+
+	// 热更新
+	viper.OnConfigChange(func(in fsnotify.Event) {
+		fmt.Println("Config file changed:", in.String()) // 这里会返回更改的文件路径
+
+		var err error
+
+		file, err := os.Open(in.Name)
+		if err != nil {
+			panic(fmt.Sprintf("can not open :%s \n ", in.Name))
+		}
+
+		err = viper.MergeConfig(file)
+		if err != nil {
+			panic(fmt.Sprintf("can not merge :%s \n ", in.Name))
+		}
+
+		fmt.Printf("read config data.database.source is: %s \n", viper.Get("data.database.source"))
+	})
+	viper.WatchConfig()
+
+	time.Sleep(100 * time.Second)
 }
 
 type Server struct {
