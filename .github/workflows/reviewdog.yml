@@ -26,3 +26,9 @@ jobs:
         with:
           golangci_lint_flags: "--enable-all --exclude-use-default=false"
           workdir: "./lint"
+      - name: shellcheck
+        uses: reviewdog/action-shellcheck@v1
+        with:
+           github_token: ${{ secrets.github_token }}
+           reporter: github-pr-review
+           path: "."
