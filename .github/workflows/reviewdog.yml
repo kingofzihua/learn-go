@@ -18,8 +18,8 @@ jobs:
 
           # Can pass --config flag to change golangci-lint behavior and target
           # directory.
-          golangci_lint_flags: "--config=.github/.golangci.yml ./lint"
-          workdir: subdirectory/
+          golangci_lint_flags: "--config=.github/.golangci.yml "
+          workdir: lint/
 
   # Use golint via golangci-lint binary with "warning" level.
   golint:
