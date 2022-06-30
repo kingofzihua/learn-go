@@ -1,8 +1,6 @@
 package ostrich
 
 import (
-	"os"
-
 	"github.com/Zemanta/gracefulshutdown"
 )
 
@@ -28,13 +26,8 @@ func Version(version string) Option {
 	return func(o *options) { o.version = version }
 }
 
-func Matadata(md map[string]string) Option {
-	return func(o *options) { o.matadata = md }
-}
-
-// Signal with exit signals.
-func Signal(sigs ...os.Signal) Option {
-	return func(o *options) { o.sigs = sigs }
+func Metadata(md map[string]string) Option {
+	return func(o *options) { o.metadata = md }
 }
 
 func ShutdownManager(gsm gracefulshutdown.ShutdownManager) Option {
