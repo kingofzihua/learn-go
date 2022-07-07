@@ -23,6 +23,12 @@ type App struct {
 	cmd         *cobra.Command
 }
 
+func WithRunFunc(fn RunFunc) Option {
+	return func(a *App) {
+		a.runFunc = fn
+	}
+}
+
 type Option func(*App)
 
 func New(name string, basename string, opts ...Option) *App {
@@ -90,7 +96,6 @@ func (a *App) runCommand(cmd *cobra.Command, args []string) error {
 }
 
 func (a *App) Run() error {
-
 	return a.cmd.Execute()
 }
 
