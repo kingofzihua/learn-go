@@ -10,18 +10,15 @@ import (
 var g Group
 
 func TestExclusiveCallDo(T *testing.T) {
-	ticker := time.NewTicker(time.Microsecond * 1000)
 	var num int32
 
-	for ; ; <-ticker.C {
-
+	for num < 10 {
 		go func() {
 			atomic.AddInt32(&num, 1)
 			_, err := getDataFromDb("")
 			if err != nil {
 				panic(err)
 			}
-			//fmt.Println(num, res)
 		}()
 	}
 }
