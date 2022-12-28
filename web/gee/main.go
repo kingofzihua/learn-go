@@ -6,19 +6,21 @@ import (
 	"net/http"
 )
 
-func main() {
-	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/hello", helloHandler)
-	err := http.ListenAndServe(":8080", nil)
-	log.Fatal(err)
+type Engine struct {
 }
 
-func indexHandler(writer http.ResponseWriter, request *http.Request) {
-	fmt.Fprintf(writer, "URL.Path = %q\n", request.URL.Path)
-}
-
-func helloHandler(writer http.ResponseWriter, request *http.Request) {
-	for k, v := range request.Header {
-		fmt.Fprintf(writer, "Header [%q] = %q \n", k, v)
+func (e *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	switch req.URL.Path {
+	case "/":
+		fmt.Fprintf(w, "URL.Path = %q \n", req.URL.Path)
+	case "/hello":
+		for k, v := range req.Header {
+			fmt.Fprintf(w, "Header [%q] = %q \n", k, v)
+		}
 	}
+}
+
+func main() {
+	eng := &Engine{}
+	log.Fatal(http.ListenAndServe(":8080", eng))
 }
