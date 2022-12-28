@@ -4,23 +4,22 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/kingofzihua/learn-go/web/gee/gee"
 )
 
-type Engine struct {
-}
+func main() {
+	eng := gee.New()
 
-func (e *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	switch req.URL.Path {
-	case "/":
+	eng.Get("/", func(w http.ResponseWriter, req *http.Request) {
 		fmt.Fprintf(w, "URL.Path = %q \n", req.URL.Path)
-	case "/hello":
+	})
+
+	eng.Get("/hello", func(w http.ResponseWriter, req *http.Request) {
 		for k, v := range req.Header {
 			fmt.Fprintf(w, "Header [%q] = %q \n", k, v)
 		}
-	}
-}
+	})
 
-func main() {
-	eng := &Engine{}
-	log.Fatal(http.ListenAndServe(":8080", eng))
+	log.Fatal(eng.Run(":8080"))
 }
