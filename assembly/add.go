@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+//go:noinline
 func add(a, b int) int {
 	return a + b
 }
