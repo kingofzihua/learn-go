@@ -22,6 +22,10 @@ func main() {
 		c.String(http.StatusOK, "hello %s , you're at %s \n", c.Query("name"), c.Path)
 	})
 
+	eng.Get("/hi/:name", func(c *gee.Context) {
+		c.String(http.StatusOK, "hello %s", c.Param("name"))
+	})
+
 	eng.Post("/login", func(c *gee.Context) {
 		c.Json(http.StatusOK, gee.H{
 			"username": c.PostForm("username"),
