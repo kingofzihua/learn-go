@@ -26,11 +26,23 @@ func main() {
 		c.String(http.StatusOK, "hello %s", c.Param("name"))
 	})
 
+	eng.Get("/hi/a/b", func(c *gee.Context) {
+		c.String(http.StatusOK, "URL.Path = %q \n", c.Path)
+	})
+
+	eng.Get("/hi/a/c", func(c *gee.Context) {
+		c.String(http.StatusOK, "URL.Path = %q \n", c.Path)
+	})
+
 	eng.Post("/login", func(c *gee.Context) {
 		c.Json(http.StatusOK, gee.H{
 			"username": c.PostForm("username"),
 			"password": c.PostForm("password"),
 		})
+	})
+
+	eng.Get("/assets/*filepath", func(c *gee.Context) {
+		c.Json(http.StatusOK, gee.H{"filepath": c.Param("filepath")})
 	})
 
 	log.Fatal(eng.Run(":8080"))
