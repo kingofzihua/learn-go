@@ -45,5 +45,15 @@ func main() {
 		c.Json(http.StatusOK, gee.H{"filepath": c.Param("filepath")})
 	})
 
+	v1 := eng.Group("/v1")
+	{
+		user := v1.Group("/user")
+		{
+			user.Get("/:name", func(c *gee.Context) {
+				c.Json(http.StatusOK, gee.H{"name": c.Param("name")})
+			})
+		}
+	}
+
 	log.Fatal(eng.Run(":8080"))
 }
