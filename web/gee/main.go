@@ -53,6 +53,12 @@ func main() {
 				c.Json(http.StatusOK, gee.H{"name": c.Param("name")})
 			})
 		}
+		order := v1.Group("/order/:order_sn")
+		{
+			order.Get("/detail", func(c *gee.Context) {
+				c.Json(http.StatusOK, gee.H{"order_sn": c.Param("order_sn")})
+			})
+		}
 	}
 
 	log.Fatal(eng.Run(":8080"))
