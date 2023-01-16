@@ -47,6 +47,7 @@ func main() {
 
 	v1 := eng.Group("/v1")
 	{
+		v1.Use(gee.Logger())
 		user := v1.Group("/user")
 		{
 			user.Get("/:name", func(c *gee.Context) {

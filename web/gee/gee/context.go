@@ -20,14 +20,28 @@ type Context struct {
 
 	// response info
 	StatusCode int
+
+	// middlewares
+	handlers []HandlerFunc
+	index    int // Next
 }
 
-func NewContext(w http.ResponseWriter, req *http.Request) *Context {
+func newContext(w http.ResponseWriter, req *http.Request) *Context {
 	return &Context{
 		Writer: w,
 		Req:    req,
 		Path:   req.URL.Path,
 		Method: req.Method,
+		index:  -1,
+	}
+}
+
+// Next 表示执行下一个 handlers 如果没有显示的调用 Next 也会执行进行下一个
+func (c *Context) Next() {
+	c.index++
+
+	for s := len(c.handlers); c.index < s; c.index++ {
+		c.handlers[c.index](c)
 	}
 }
 

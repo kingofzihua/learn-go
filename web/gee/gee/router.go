@@ -91,12 +91,22 @@ func (r *router) handle(c *Context) {
 
 	n, params := r.getRoute(c.Method, c.Path)
 
+	var handler HandlerFunc
+
+	// 查找真正处理的 action
 	if n != nil {
 		c.Params = params
 		// handler
 		key := c.Method + "-" + n.pattern
-		r.handlers[key](c)
+		handler = r.handlers[key]
 	} else {
-		c.String(http.StatusNotFound, "404 NOT FOUND: %s\n", c.Path)
+		handler = func(c *Context) {
+			c.String(http.StatusNotFound, "404 NOT FOUND: %s\n", c.Path)
+		}
 	}
+	// 将 action 添加到末尾
+	c.handlers = append(c.handlers, handler)
+
+	// 执行第一个
+	c.Next()
 }
