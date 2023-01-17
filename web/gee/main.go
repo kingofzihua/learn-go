@@ -8,10 +8,15 @@ import (
 )
 
 func main() {
-	eng := gee.New()
+	eng := gee.Default()
 
 	eng.Get("/", func(c *gee.Context) {
 		c.String(http.StatusOK, "URL.Path = %q \n", c.Path)
+	})
+
+	eng.Get("/panic", func(c *gee.Context) {
+		names := []string{"geektutu"}
+		c.String(http.StatusOK, names[100])
 	})
 
 	eng.Get("/header", func(c *gee.Context) {
@@ -47,7 +52,6 @@ func main() {
 
 	v1 := eng.Group("/v1")
 	{
-		v1.Use(gee.Logger())
 		user := v1.Group("/user")
 		{
 			user.Get("/:name", func(c *gee.Context) {
