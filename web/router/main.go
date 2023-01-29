@@ -7,12 +7,17 @@ import (
 	"net/http"
 )
 
+// /h el lo /gin
+// /h el lo 2/gin
+// /h el o :username /name
+// /h i:usernamess
+
 func main() {
 	router := httprouter.New()
 
 	router.GET("/index", Index)
 	router.GET("/hello/gin", HelloGin)
-	router.GET("/hi/gin", HelloGin)
+	router.GET("/hello2/gin", HelloGin)
 	/**
 
 	/user/gordon              match
@@ -22,6 +27,9 @@ func main() {
 
 	*/
 	router.GET("/user/:username", User)
+	router.GET("/hi:username", User)        // 允许
+	router.GET("/helo:username/name", User) // 允许
+	//router.GET("/:d-:m-:y/name", User)    // 不允许
 
 	//router.GET("/blog/:/", BlogIndex) // params 路由必须有名字
 	// router.GET("/blog/index", BlogIndex) // 同一个路由前缀，不允许同时定义 static 和 params
@@ -32,9 +40,10 @@ func main() {
 	/blog/go/                           no match
 	/blog/go/request-routers/comments   no match
 	*/
-	router.GET("/blog/:category/:post", Blog)
+	router.GET("/blog/:category/:post/", Blog)
 	router.GET("/blog/:category/:post/:name", Blog)
-	router.GET("/b/:category/:post/:name", Blog)
+	router.GET("/bg/:category/:post/:name", Blog)
+	router.GET("/bg/:category/:post/:name", Blog)
 
 	/**
 	/static/                     match
