@@ -28,7 +28,7 @@ func main() {
 	*/
 	router.GET("/user/:username", User)
 	router.GET("/hi:username", User)        // 允许
-	router.GET("/helo:username/name", User) // 允许
+	router.GET("/helo:username/Name", User) // 允许
 	//router.GET("/:d-:m-:y/name", User)    // 不允许
 
 	//router.GET("/blog/:/", BlogIndex) // params 路由必须有名字
@@ -42,7 +42,6 @@ func main() {
 	*/
 	router.GET("/blog/:category/:post/", Blog)
 	router.GET("/blog/:category/:post/:name", Blog)
-	router.GET("/bg/:category/:post/:name", Blog)
 	router.GET("/bg/:category/:post/:name", Blog)
 
 	/**
