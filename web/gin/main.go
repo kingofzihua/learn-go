@@ -12,7 +12,7 @@ import (
 // /h i:usernamess
 
 func main() {
-	router := gin.New()
+	router := gin.Default()
 
 	router.GET("/index", Index)
 	router.GET("/hello/gin", HelloGin)
