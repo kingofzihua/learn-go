@@ -43,6 +43,8 @@ func main() {
 	router.GET("/blog/:category/:post/:name", Blog)
 	router.GET("/bg/:category/:post/:name", Blog)
 
+	router.GET("/testing/:name", Testing)
+
 	/**
 	/static/                     match
 	/static/index.html           match
@@ -67,6 +69,26 @@ func BlogIndex(c *gin.Context) {
 
 func Blog(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"category": c.Param("category"), "post": c.Param("post")})
+}
+
+type Person struct {
+	Name    string `uri:"name"`
+	Address string `form:"address"`
+}
+
+func Testing(c *gin.Context) {
+	var person Person
+
+	err := c.ShouldBind(&person)
+	if err != nil {
+		c.String(500, err.Error())
+		return
+	}
+	if err := c.ShouldBindUri(&person); err != nil {
+		c.JSON(400, gin.H{"msg": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"name": person.Name, "address": person.Address})
 }
 
 func User(c *gin.Context) {
