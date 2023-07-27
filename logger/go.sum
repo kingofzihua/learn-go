@@ -1,2 +1,4 @@
+github.com/go-kratos/kratos/v2 v2.6.3 h1:zuejN8CnszyMnbLWd7ObCN9rLuKucJe2/2P6hHpePDc=
+github.com/go-kratos/kratos/v2 v2.6.3/go.mod h1:nlBMkZueZps7UaP3GdbqG8V8N/eAX0jh019OKSm4xew=
 golang.org/x/exp v0.0.0-20230725012225-302865e7556b h1:tK7yjGqVRzYdXsBcfD2MLhFAhHfDgGLm2rY1ub7FA9k=
 golang.org/x/exp v0.0.0-20230725012225-302865e7556b/go.mod h1:FXUEEKJgO7OQYeo8N01OfiKP8RXMtf6e8aTskBGqWdc=
