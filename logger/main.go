@@ -10,10 +10,20 @@ import (
 )
 
 func main() {
-	file, _ := os.OpenFile("test.log", os.O_WRONLY|os.O_CREATE|os.O_TRUNC|os.O_TRUNC, os.ModePerm)
+	file, err := os.OpenFile("test.log", os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		panic(err)
+	}
+
+	if _, err := file.WriteString("content\n"); err != nil {
+		panic(err)
+	}
 
 	slogs(file)
 	kraots(file)
+	if _, err := file.WriteString("content\n"); err != nil {
+		panic(err)
+	}
 }
 
 func kraots(w io.Writer) {
