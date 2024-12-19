@@ -45,6 +45,8 @@ func main() {
 
 	router.GET("/testing/:name", Testing)
 
+	router.GET("m3u", M3U)
+
 	/**
 	/static/                     match
 	/static/index.html           match
