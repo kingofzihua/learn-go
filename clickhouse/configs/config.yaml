@@ -1,0 +1,12 @@
+database:
+  clickhouse:
+    host: 127.0.0.1
+    port: 9009
+    database: default
+    user: root
+    password: "123456"
+    dial_timeout: 200ms
+    max_execution_time: 60
+
+server:
+  port: ":8080"
