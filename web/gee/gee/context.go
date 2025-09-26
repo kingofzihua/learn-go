@@ -3,6 +3,7 @@ package gee
 import (
 	"encoding/json"
 	"fmt"
+	"html"
 	"net/http"
 )
 
@@ -70,7 +71,15 @@ func (c *Context) SetHeader(key string, val string) {
 func (c *Context) String(code int, format string, values ...any) {
 	c.SetHeader("Content-Type", "text/plain")
 	c.Status(code)
-	fmt.Fprintf(c.Writer, format, values...)
+	escaped := make([]any, len(values))
+	for i, v := range values {
+		if s, ok := v.(string); ok {
+			escaped[i] = html.EscapeString(s)
+		} else {
+			escaped[i] = v
+		}
+	}
+	fmt.Fprintf(c.Writer, format, escaped...)
 }
 
 func (c *Context) Json(code int, obj any) {
